@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
   theme: {
@@ -29,6 +30,13 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
+      },
+      animation: {
+        float: "float 3s ease-in-out infinite",
+        wave: "wave 1.5s ease-in-out infinite",
+        aurora: "aurora 12s ease-in-out infinite",
+        "aurora-morph": "aurora-morph 8s ease infinite",
+        "penguin-slide": "penguin-slide 3.5s ease-in-out infinite",
       },
     },
   },

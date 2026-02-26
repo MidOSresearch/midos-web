@@ -1,3 +1,114 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   Shared sandbox keyframes
+   ═══════════════════════════════════════════ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+@keyframes aurora {
+  0% { transform: rotate(0deg) scale(1); opacity: 0.3; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 0.5; }
+  100% { transform: rotate(360deg) scale(1); opacity: 0.3; }
+}
+
+@keyframes aurora-morph {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes draw-path {
+  from { stroke-dashoffset: 2000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes penguin-slide {
+  0%   { transform: translateX(0px) rotate(-5deg); }
+  25%  { transform: translateX(12px) rotate(3deg); }
+  50%  { transform: translateX(6px) rotate(-2deg); }
+  75%  { transform: translateX(18px) rotate(4deg); }
+  100% { transform: translateX(0px) rotate(-5deg); }
+}
+
+/* ═══════════════════════════════════════════
+   data-reveal animation system
+   ═══════════════════════════════════════════ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal="scale"] {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal].revealed,
+[data-reveal="scale"].revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* data-reveal delay helpers */
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+[data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+/* draw-path trigger class */
+.animate-draw-path {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: draw-path 2.5s ease forwards;
+}
+
+/* aurora-morph background class */
+.animate-aurora-morph {
+  background: linear-gradient(
+    135deg,
+    #009688 0%,
+    #00bcd4 20%,
+    #1a2940 40%,
+    #009688 60%,
+    #00695c 80%,
+    #00bcd4 100%
+  );
+  background-size: 400% 400%;
+  animation: aurora-morph 8s ease infinite;
+}
+
+/* shimmer text effect */
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e0f2f1 0%,
+    #4db6ac 25%,
+    #ffffff 50%,
+    #4db6ac 75%,
+    #e0f2f1 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
