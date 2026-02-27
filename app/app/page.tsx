@@ -1,11 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /**
  * midos.dev — Public landing page.
  * Conversion funnel: Hook → Pain → Trust → Value → Scale → Community → Pricing → CTA
+ *
+ * Performance: LazySection renders children only when near viewport (rootMargin 400px).
+ * Hero loads immediately; everything else lazy-mounts on scroll approach.
  */
 
 const Hero = dynamic(() => import("./sandbox/hero/v5/page"), { ssr: false });
@@ -83,6 +86,28 @@ function SectionThread() {
   );
 }
 
+function LazySection({ children, minH = "50vh" }: { children: ReactNode; minH?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: "400px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} style={{ minHeight: visible ? undefined : minH }}>
+      {visible ? children : null}
+    </div>
+  );
+}
+
 export default function LandingPage() {
   return (
     <div className="bg-penguin-bg text-gray-100 scroll-smooth">
@@ -101,58 +126,72 @@ export default function LandingPage() {
         .journey-section a[href*="/sandbox"] {
           display: none !important;
         }
-        /* Compress middle sections: allow natural height instead of forcing 100vh */
         .journey-section.compact main,
         .journey-section.compact section {
           min-height: auto !important;
         }
       `}</style>
 
+      {/* Hero loads immediately — first impression */}
       <div className="journey-section">
         <Hero />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section compact" id="how-it-works">
-        <BeforeAfter />
-      </div>
+      <LazySection>
+        <div className="journey-section compact" id="how-it-works">
+          <BeforeAfter />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section compact">
-        <Pipeline />
-      </div>
+      <LazySection>
+        <div className="journey-section compact">
+          <Pipeline />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section compact">
-        <Orchestrator />
-      </div>
+      <LazySection>
+        <div className="journey-section compact">
+          <Orchestrator />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section compact">
-        <Topology />
-      </div>
+      <LazySection>
+        <div className="journey-section compact">
+          <Topology />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section compact">
-        <Colony />
-      </div>
+      <LazySection>
+        <div className="journey-section compact">
+          <Colony />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section compact" id="pricing">
-        <Pricing />
-      </div>
+      <LazySection>
+        <div className="journey-section compact" id="pricing">
+          <Pricing />
+        </div>
+      </LazySection>
 
       <SectionThread />
 
-      <div className="journey-section">
-        <Horizon />
-      </div>
+      <LazySection>
+        <div className="journey-section">
+          <Horizon />
+        </div>
+      </LazySection>
     </div>
   );
 }
