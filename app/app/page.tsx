@@ -101,6 +101,11 @@ export default function LandingPage() {
         .journey-section a[href*="/sandbox"] {
           display: none !important;
         }
+        /* Compress middle sections: allow natural height instead of forcing 100vh */
+        .journey-section.compact main,
+        .journey-section.compact section {
+          min-height: auto !important;
+        }
       `}</style>
 
       <div className="journey-section">
@@ -109,37 +114,37 @@ export default function LandingPage() {
 
       <SectionThread />
 
-      <div className="journey-section" id="how-it-works">
+      <div className="journey-section compact" id="how-it-works">
         <BeforeAfter />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section">
+      <div className="journey-section compact">
         <Pipeline />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section">
+      <div className="journey-section compact">
         <Orchestrator />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section">
+      <div className="journey-section compact">
         <Topology />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section">
+      <div className="journey-section compact">
         <Colony />
       </div>
 
       <SectionThread />
 
-      <div className="journey-section" id="pricing">
+      <div className="journey-section compact" id="pricing">
         <Pricing />
       </div>
 
