@@ -107,16 +107,28 @@ export default function LandingPage() {
         .journey-section a[href*="/sandbox"] {
           display: none !important;
         }
-        /* Middle sections: natural height, no forced 100vh */
+        /* Override viewport-based min-heights only — preserve content heights */
         .journey-section.compact main,
-        .journey-section.compact section {
-          min-height: auto !important;
+        .journey-section.compact section,
+        .journey-section.compact > div > main,
+        .journey-section.compact > div > section {
+          min-height: 0 !important;
+          padding-top: 2rem !important;
+          padding-bottom: 2rem !important;
         }
-        /* Smooth section entrance — starts slightly faded, transitions in */
+        /* Flex containers that center content in full-viewport: undo justify-center stretching */
+        .journey-section.compact [class*="min-h-screen"],
+        .journey-section.compact [class*="min-h-\[100vh\]"] {
+          min-height: 0 !important;
+        }
+        .journey-section.compact canvas {
+          position: absolute !important;
+          height: 100% !important;
+        }
         .journey-section.compact {
-          opacity: 0.4;
-          transform: translateY(12px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          opacity: 0.7;
+          transform: translateY(6px);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         .journey-section.compact.in-view {
           opacity: 1;

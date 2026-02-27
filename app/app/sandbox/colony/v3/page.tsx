@@ -38,7 +38,7 @@ const penguins = [
 ];
 
 const values = [
-  { title: "Open", desc: "19K chunks, one MCP call away", color: "text-emerald-400", borderColor: "hover:border-emerald-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(52,211,153,0.10)]" },
+  { title: "Open", desc: "Vast knowledge, one MCP call away", color: "text-emerald-400", borderColor: "hover:border-emerald-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(52,211,153,0.10)]" },
   { title: "Reliable", desc: "5 layers of validation before your agent sees it", color: "text-amber-400", borderColor: "hover:border-amber-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(251,191,36,0.10)]" },
   { title: "Evolving", desc: "Every cycle adds patterns, never removes them", color: "text-violet-400", borderColor: "hover:border-violet-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(167,139,250,0.10)]" },
 ];

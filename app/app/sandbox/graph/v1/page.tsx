@@ -57,7 +57,7 @@ function buildDemoGraph(): { nodes: GraphNode[]; edges: GraphEdge[] } {
     { id: "sota", label: "SOTA (67)", type: "sota", size: 10, x: 0, y: 260 },
     // Tools cluster
     { id: "tools", label: "Tools (412)", type: "tool", size: 18, x: 280, y: -100 },
-    { id: "harvest", label: "Harvest Intel", type: "tool", size: 8, x: 360, y: -160 },
+    { id: "ingest", label: "Ingest Engine", type: "tool", size: 8, x: 360, y: -160 },
     { id: "pipeline_synergy", label: "Pipeline Synergy", type: "tool", size: 8, x: 380, y: -60 },
     { id: "vector_store", label: "Vector Store", type: "tool", size: 10, x: 340, y: 0 },
     { id: "cost_dashboard", label: "Cost Dashboard", type: "tool", size: 6, x: 400, y: -120 },
@@ -86,11 +86,11 @@ function buildDemoGraph(): { nodes: GraphNode[]; edges: GraphEdge[] } {
     { source: "truth", target: "eureka", label: "promotes" },
     { source: "eureka", target: "sota", label: "elevates" },
     // Tools connections
-    { source: "tools", target: "harvest", label: "contains" },
+    { source: "tools", target: "ingest", label: "contains" },
     { source: "tools", target: "pipeline_synergy", label: "contains" },
     { source: "tools", target: "vector_store", label: "contains" },
     { source: "tools", target: "cost_dashboard", label: "contains" },
-    { source: "harvest", target: "staging", label: "feeds" },
+    { source: "ingest", target: "staging", label: "feeds" },
     { source: "pipeline_synergy", target: "chunks", label: "orchestrates" },
     { source: "vector_store", target: "chunks", label: "indexes" },
     // Hooks connections

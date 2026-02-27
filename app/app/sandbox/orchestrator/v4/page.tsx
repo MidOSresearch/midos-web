@@ -22,9 +22,9 @@ import { useDataReveal } from "@/lib/ui/hooks";
  */
 
 const CAPABILITIES = [
-  { label: "Research",  desc: "Deep dives into any topic. 100+ sources harvested per round.",  color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
-  { label: "Knowledge", desc: "19K+ validated chunks. Docs, skills, patterns — absorbed.",     color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F4DA}" },
-  { label: "Harvest",   desc: "Auto-ingest from web, docs, repos. Always learning.",           color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F33E}" },
+  { label: "Research",  desc: "Deep dives into any topic. Curated from open knowledge.",       color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
+  { label: "Knowledge", desc: "Vast validated library. Docs, skills, patterns — ready.",       color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F4DA}" },
+  { label: "Ingest",    desc: "Continuous learning from docs, repos, community.",              color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F33E}" },
   { label: "Tools",     desc: "400+ instruments. Semantic search, agent handshake.",            color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F527}" },
   { label: "Pipeline",  desc: "5 layers: raw → chunks → tools → truth → SOTA.",                color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F4CA}" },
   { label: "Truth",     desc: "47 verified patches. EUREKA discoveries. Battle-tested.",        color: { r: 251, g: 191, b: 36  }, icon: "\u{2705}" },
@@ -144,8 +144,8 @@ export default function OrchestratorExperiment() {
 
       CAPABILITIES.forEach((_, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.6 + i * 0.1) + i * 1.8) * 0.14
-          + Math.sin(time * (0.3 + i * 0.05) + i * 3.1) * 0.05;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.09
+          + Math.sin(time * (0.25 + i * 0.04) + i * 3.1) * 0.02;
         const angle = baseAngle + sway;
 
         const endX = bx + Math.cos(angle) * tentacleLength;
@@ -156,7 +156,7 @@ export default function OrchestratorExperiment() {
         if (mouseX > -500) {
           const d = Math.sqrt((mouseX - endX) ** 2 + (mouseY - endY) ** 2);
           if (d < 120) {
-            const pull = (1 - d / 120) * 0.15;
+            const pull = (1 - d / 120) * 0.12;
             finalEndX += (mouseX - endX) * pull;
             finalEndY += (mouseY - endY) * pull;
           }
@@ -185,8 +185,8 @@ export default function OrchestratorExperiment() {
       // --- DRAW TENTACLES ---
       CAPABILITIES.forEach((cap, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.6 + i * 0.1) + i * 1.8) * 0.14
-          + Math.sin(time * (0.3 + i * 0.05) + i * 3.1) * 0.05;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.09
+          + Math.sin(time * (0.25 + i * 0.04) + i * 3.1) * 0.02;
         const angle = baseAngle + sway;
 
         const { x: finalEndX, y: finalEndY } = tipPositions[i];
@@ -335,7 +335,7 @@ export default function OrchestratorExperiment() {
 
       // Body glow — reactive colored
       const gradient = ctx.createRadialGradient(bx, by, rx * 0.3, bx, by, rx * 3);
-      gradient.addColorStop(0, `rgba(${hr},${hg},${hb},0.18)`);
+      gradient.addColorStop(0, `rgba(${hr},${hg},${hb},0.14)`);
       gradient.addColorStop(1, "transparent");
       ctx.beginPath();
       ctx.arc(bx, by, rx * 3, 0, Math.PI * 2);

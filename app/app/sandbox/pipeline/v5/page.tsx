@@ -19,9 +19,9 @@ import { useDataReveal } from "@/lib/ui/hooks";
 const stages = [
   {
     num: "01", name: "Staging", label: "Raw Sources",
-    desc: "Everything enters here. Books, docs, repos, transcriptions. The raw material of knowledge.",
+    desc: "Everything enters here. Docs, repos, research, community knowledge. The raw material.",
     count: "\u221E",
-    insight: "376 books ingested, web harvests, Discord scrapes, video transcriptions",
+    insight: "Thousands of curated sources — docs, research, community contributions",
     color: { r: 156, g: 163, b: 175, hex: "#9ca3af" },
     tw: { num: "text-gray-400", dot: "bg-gray-500", border: "hover:border-gray-500/40", shadow: "hover:shadow-[0_8px_30px_rgba(156,163,175,0.10)]", insight: "text-gray-600", insightBorder: "border-gray-800" },
   },
@@ -37,7 +37,7 @@ const stages = [
     num: "03", name: "Dev", label: "Tools & Depth",
     desc: "400+ instruments. Semantic search. Agent handshake. Professional depth.",
     count: "413",
-    insight: "Harvest, vector search, pipeline synergy, cost tracking, quality scoring",
+    insight: "Semantic search, pipeline synergy, quality scoring, agent handshake",
     color: { r: 56, g: 189, b: 248, hex: "#38bdf8" },
     tw: { num: "text-sky-400", dot: "bg-sky-400", border: "hover:border-sky-500/40", shadow: "hover:shadow-[0_8px_30px_rgba(56,189,248,0.12)]", insight: "text-sky-700", insightBorder: "border-sky-900/30" },
   },

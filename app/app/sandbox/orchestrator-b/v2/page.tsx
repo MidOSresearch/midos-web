@@ -16,12 +16,12 @@ import { useDataReveal } from "@/lib/ui/hooks";
  */
 
 const SPOKES = [
-  { label: "Research", desc: "Deep dives into any topic. Harvest intelligence from 100+ sources.", color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
-  { label: "Knowledge", desc: "21K+ validated chunks. Docs, skills, patterns — absorbed and indexed.", color: { r: 52, g: 211, b: 153 }, icon: "\u{1F4DA}" },
-  { label: "Tools", desc: "300+ instruments. Semantic search, pipelines, agent handshake.", color: { r: 56, g: 189, b: 248 }, icon: "\u{1F527}" },
+  { label: "Research", desc: "Deep dives into any topic. Curated from open knowledge.", color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
+  { label: "Knowledge", desc: "Vast validated library. Docs, skills, patterns — ready.", color: { r: 52, g: 211, b: 153 }, icon: "\u{1F4DA}" },
+  { label: "Tools", desc: "400+ instruments. Semantic search, pipelines, agent handshake.", color: { r: 56, g: 189, b: 248 }, icon: "\u{1F527}" },
   { label: "Community", desc: "Skills shared freely. Open source. Built by many, for everyone.", color: { r: 251, g: 191, b: 36 }, icon: "\u{1F91D}" },
-  { label: "Skills", desc: "118 stacks. React, Rust, Go, Python — battle-tested patterns.", color: { r: 167, g: 139, b: 250 }, icon: "\u{26A1}" },
-  { label: "Harvest", desc: "Auto-ingest from web, docs, repos. Always learning, always growing.", color: { r: 52, g: 211, b: 153 }, icon: "\u{1F33E}" },
+  { label: "Skills", desc: "121 stacks. React, Rust, Go, Python — battle-tested patterns.", color: { r: 167, g: 139, b: 250 }, icon: "\u{26A1}" },
+  { label: "Ingest", desc: "Continuous learning from docs, repos, community.", color: { r: 52, g: 211, b: 153 }, icon: "\u{1F33E}" },
   { label: "Truth", desc: "47 verified patches. EUREKA discoveries. What survived the fire.", color: { r: 251, g: 191, b: 36 }, icon: "\u{2705}" },
   { label: "Pipeline", desc: "5 layers: raw → chunks → tools → truth → SOTA. Knowledge matures.", color: { r: 167, g: 139, b: 250 }, icon: "\u{1F4CA}" },
 ];

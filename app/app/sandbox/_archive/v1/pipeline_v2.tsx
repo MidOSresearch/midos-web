@@ -21,7 +21,7 @@ const stages = [
     num: "01",
     name: "Staging",
     label: "Raw Sources",
-    desc: "Everything enters here. Books, docs, repos, transcriptions.",
+    desc: "Everything enters here. Docs, repos, research, community knowledge.",
     count: "∞",
     // Gray tier
     numColor: "text-gray-400",
