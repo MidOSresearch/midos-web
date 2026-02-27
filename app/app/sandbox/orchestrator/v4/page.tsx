@@ -144,7 +144,8 @@ export default function OrchestratorExperiment() {
 
       CAPABILITIES.forEach((_, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.08;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.6 + i * 0.1) + i * 1.8) * 0.14
+          + Math.sin(time * (0.3 + i * 0.05) + i * 3.1) * 0.05;
         const angle = baseAngle + sway;
 
         const endX = bx + Math.cos(angle) * tentacleLength;
@@ -155,7 +156,7 @@ export default function OrchestratorExperiment() {
         if (mouseX > -500) {
           const d = Math.sqrt((mouseX - endX) ** 2 + (mouseY - endY) ** 2);
           if (d < 120) {
-            const pull = (1 - d / 120) * 0.10;
+            const pull = (1 - d / 120) * 0.15;
             finalEndX += (mouseX - endX) * pull;
             finalEndY += (mouseY - endY) * pull;
           }
@@ -184,7 +185,8 @@ export default function OrchestratorExperiment() {
       // --- DRAW TENTACLES ---
       CAPABILITIES.forEach((cap, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.08;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.6 + i * 0.1) + i * 1.8) * 0.14
+          + Math.sin(time * (0.3 + i * 0.05) + i * 3.1) * 0.05;
         const angle = baseAngle + sway;
 
         const { x: finalEndX, y: finalEndY } = tipPositions[i];
@@ -333,7 +335,7 @@ export default function OrchestratorExperiment() {
 
       // Body glow — reactive colored
       const gradient = ctx.createRadialGradient(bx, by, rx * 0.3, bx, by, rx * 3);
-      gradient.addColorStop(0, `rgba(${hr},${hg},${hb},0.12)`);
+      gradient.addColorStop(0, `rgba(${hr},${hg},${hb},0.18)`);
       gradient.addColorStop(1, "transparent");
       ctx.beginPath();
       ctx.arc(bx, by, rx * 3, 0, Math.PI * 2);
@@ -363,7 +365,7 @@ export default function OrchestratorExperiment() {
 
           ctx.beginPath();
           ctx.arc(sx, sy, spotR, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${Math.round(spotColor.r)},${Math.round(spotColor.g)},${Math.round(spotColor.b)},0.3)`;
+          ctx.fillStyle = `rgba(${Math.round(spotColor.r)},${Math.round(spotColor.g)},${Math.round(spotColor.b)},0.4)`;
           ctx.fill();
         }
       }
@@ -419,7 +421,7 @@ export default function OrchestratorExperiment() {
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillStyle = `rgba(${hr},${hg},${hb},0.45)`;
-      ctx.fillText("PULPO", bx, by + ry + 16);
+      ctx.fillText("MidOS", bx, by + ry + 16);
 
       // Interaction hint
       if (hoveredTentacle < 0 && distToHub > 200) {
@@ -452,7 +454,7 @@ export default function OrchestratorExperiment() {
 
       <div className="relative z-10 pt-12 text-center px-6" data-reveal>
         <span className="inline-block text-[11px] font-mono uppercase tracking-[0.25em] text-gray-600 mb-2">
-          Orchestrator A
+          The Orchestrator
         </span>
         <h2 className="text-3xl sm:text-4xl font-bold text-white/90 tracking-tight">
           One Mind, Many Hands

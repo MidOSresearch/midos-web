@@ -108,7 +108,7 @@ export default function ColonyPage() {
             {/* Penguin with continuous idle animation */}
             <div className="penguin-idle transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
               <p.Component
-                className={`${p.size} opacity-70 group-hover:opacity-100 transition-opacity duration-300`}
+                className={`${p.size} opacity-85 group-hover:opacity-100 transition-opacity duration-300`}
               />
             </div>
 
