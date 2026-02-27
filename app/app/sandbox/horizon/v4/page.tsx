@@ -36,16 +36,36 @@ interface Wisp {
   phase: number;
 }
 
+// Anchor zones — wisps spawn biased toward their matching CSS anchor
+const ANCHOR_ZONES = [
+  { x: 0.20, y: 0.30, colors: [1] },       // top-left: green
+  { x: 0.75, y: 0.35, colors: [2] },       // top-right: blue
+  { x: 0.35, y: 0.75, colors: [4] },       // bottom-left: purple
+  { x: 0.50, y: 0.50, colors: [0, 3] },    // center: gray, gold (free roamers)
+];
+
 function spawnWisp(w: number, h: number): Wisp {
+  // 70% chance: spawn near an anchor zone with matching color
+  const zoneSpawn = Math.random() < 0.7;
+  const zone = ANCHOR_ZONES[Math.floor(Math.random() * ANCHOR_ZONES.length)];
+  const color = zoneSpawn
+    ? zone.colors[Math.floor(Math.random() * zone.colors.length)]
+    : Math.floor(Math.random() * WISP_COLORS.length);
+  const x = zoneSpawn
+    ? zone.x * w + (Math.random() - 0.5) * w * 0.3
+    : Math.random() * w;
+  const y = zoneSpawn
+    ? zone.y * h + (Math.random() - 0.5) * h * 0.3
+    : Math.random() * h;
+
   return {
-    x: Math.random() * w,
-    y: Math.random() * h,
-    vx: (Math.random() - 0.5) * 0.25,
-    vy: (Math.random() - 0.5) * 0.15 - 0.08,
-    size: 20 + Math.random() * 60,       // smaller than v3
+    x, y,
+    vx: (Math.random() - 0.5) * 0.20,
+    vy: -0.06 - Math.random() * 0.12,     // upward drift like aurora
+    size: 30 + Math.random() * 80,        // larger for visibility
     stretch: 1 + Math.random() * 0.8,    // some elliptical
     angle: Math.random() * Math.PI,
-    color: Math.floor(Math.random() * WISP_COLORS.length),
+    color,
     life: 0,
     maxLife: 5 + Math.random() * 10,
     phase: Math.random() * Math.PI * 2,
@@ -120,10 +140,10 @@ export default function HorizonExperiment() {
           wisp.life += dt;
           wisp.x += wisp.vx;
           wisp.y += wisp.vy;
-          wisp.vx += (Math.random() - 0.5) * 0.008;
-          wisp.vy += (Math.random() - 0.5) * 0.008;
-          wisp.vx *= 0.997;
-          wisp.vy *= 0.997;
+          wisp.vx += (Math.random() - 0.5) * 0.005;
+          wisp.vy += (Math.random() - 0.5) * 0.004 - 0.001; // gentle upward bias
+          wisp.vx *= 0.998;
+          wisp.vy *= 0.998;
           wisp.angle += 0.001; // slow rotation
         }
 
@@ -146,8 +166,8 @@ export default function HorizonExperiment() {
         const mouseDist = Math.sqrt(mdx * mdx + mdy * mdy);
         const mouseBoost = mouseDist < 0.25 ? (1 - mouseDist / 0.25) * 0.5 : 0;
 
-        // SHARPER: higher base alpha (0.15 vs 0.08), tighter gradient
-        const finalAlpha = Math.max(0, Math.min(1, alpha * 0.15 + mouseBoost * 0.05));
+        // VISIBLE: base alpha high enough to see, mouse adds warmth
+        const finalAlpha = Math.max(0, Math.min(1, alpha * 0.40 + mouseBoost * 0.15));
 
         if (finalAlpha > 0.005) {
           const c = WISP_COLORS[wisp.color];
@@ -218,15 +238,15 @@ export default function HorizonExperiment() {
         ref={sectionRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* CSS anchor layers — structure that wisps float around */}
+        {/* CSS anchor layers — stronger structure that wisps orbit around */}
         <div
           className="absolute pointer-events-none"
           aria-hidden="true"
           style={{
             top: "15%", left: "5%",
             width: "35vw", height: "30vw",
-            background: "radial-gradient(ellipse at 40% 40%, rgba(52,211,153,0.07) 0%, transparent 55%)",
-            filter: "blur(30px)",
+            background: "radial-gradient(ellipse at 40% 40%, rgba(52,211,153,0.12) 0%, transparent 55%)",
+            filter: "blur(25px)",
           }}
         />
         <div
@@ -235,8 +255,8 @@ export default function HorizonExperiment() {
           style={{
             top: "25%", right: "0%",
             width: "30vw", height: "35vw",
-            background: "radial-gradient(ellipse at 60% 50%, rgba(56,189,248,0.06) 0%, transparent 55%)",
-            filter: "blur(25px)",
+            background: "radial-gradient(ellipse at 60% 50%, rgba(56,189,248,0.10) 0%, transparent 55%)",
+            filter: "blur(22px)",
           }}
         />
         <div
@@ -245,8 +265,8 @@ export default function HorizonExperiment() {
           style={{
             bottom: "15%", left: "20%",
             width: "35vw", height: "25vw",
-            background: "radial-gradient(ellipse at 50% 60%, rgba(167,139,250,0.05) 0%, transparent 55%)",
-            filter: "blur(28px)",
+            background: "radial-gradient(ellipse at 50% 60%, rgba(167,139,250,0.09) 0%, transparent 55%)",
+            filter: "blur(24px)",
           }}
         />
 
@@ -269,20 +289,34 @@ export default function HorizonExperiment() {
           </h2>
 
           <p className="text-gray-400 text-base sm:text-lg mb-4 leading-relaxed" data-reveal>
-            Every journey starts with a single step.
+            One install. Every agent you build gets 19,000&nbsp;answers.
           </p>
           <p className="text-gray-500 text-sm mb-10 leading-relaxed" data-reveal data-reveal-delay="1">
-            Every knowledge graph starts with a single node.
+            No more searching every time. The library&nbsp;remembers.
           </p>
 
-          <div data-reveal data-reveal-delay="2">
+          {/* Recap — remind what they learned */}
+          <div className="flex flex-wrap justify-center gap-3 mb-10" data-reveal data-reveal-delay="2">
+            {[
+              { label: "19K+ chunks", color: "text-emerald-400/70" },
+              { label: "5-layer pipeline", color: "text-sky-400/70" },
+              { label: "121 skills", color: "text-amber-400/70" },
+              { label: "Grade A security", color: "text-violet-400/70" },
+            ].map((item) => (
+              <span key={item.label} className={`text-[11px] font-mono ${item.color}`}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+
+          <div data-reveal data-reveal-delay="3">
             <a
               href="/login"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold rounded-lg
                          transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(52,211,153,0.25)]
                          active:translate-y-0 active:shadow-none"
             >
-              Start your journey
+              Install MidOS
               <span className="animate-wave">&rarr;</span>
             </a>
           </div>
@@ -290,7 +324,7 @@ export default function HorizonExperiment() {
           <p
             className="text-gray-700 text-xs mt-20 tracking-wider"
             data-reveal
-            data-reveal-delay="3"
+            data-reveal-delay="4"
           >
             se puede mejorar el mundo
           </p>

@@ -18,9 +18,9 @@ import { useCanvasTopology, useDataReveal } from "@/lib/ui/hooks";
 export default function TopologyExperiment() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useCanvasTopology(canvasRef, {
-    nodeCount: 65,
-    connectionDistance: 140,
+    density: 0.85,
     mouseGlow: true,
+    brightness: 1.2,
   });
   useDataReveal({ threshold: 0.05 });
 
@@ -56,13 +56,13 @@ export default function TopologyExperiment() {
         >
           <div className="flex flex-col items-center">
             <div className="text-3xl sm:text-4xl font-extrabold text-emerald-400">
-              21K+
+              19K+
             </div>
             <div className="text-xs text-gray-500 mt-1">Knowledge nodes</div>
           </div>
           <div className="flex flex-col items-center">
             <div className="text-3xl sm:text-4xl font-extrabold text-amber-400">
-              168
+              236
             </div>
             <div className="text-xs text-gray-500 mt-1">Discoveries</div>
           </div>
@@ -74,29 +74,80 @@ export default function TopologyExperiment() {
           </div>
         </div>
 
+        {/* Connection examples — the story behind the graph */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-14"
+          data-reveal
+          data-reveal-delay="3"
+        >
+          {[
+            {
+              from: "Chunk",
+              to: "Skill",
+              example: "A React 19 tutorial becomes a reusable migration guide",
+              textClass: "text-emerald-400",
+              hoverClass: "hover:border-emerald-500/30 hover:shadow-[0_8px_30px_rgba(52,211,153,0.08)]",
+            },
+            {
+              from: "Truth Patch",
+              to: "EUREKA",
+              example: "A verified fix reveals a pattern that improves 40 other chunks",
+              textClass: "text-amber-400",
+              hoverClass: "hover:border-amber-500/30 hover:shadow-[0_8px_30px_rgba(251,191,36,0.08)]",
+            },
+            {
+              from: "EUREKA",
+              to: "SOTA",
+              example: "A recurring insight becomes state-of-the-art — your agent learns it once",
+              textClass: "text-violet-400",
+              hoverClass: "hover:border-violet-500/30 hover:shadow-[0_8px_30px_rgba(167,139,250,0.08)]",
+            },
+          ].map((conn) => (
+            <div
+              key={conn.from}
+              className={`bg-penguin-surface/40 backdrop-blur-sm border border-penguin-border rounded-xl p-4
+                         transition-all duration-300 hover:-translate-y-1 ${conn.hoverClass}`}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`${conn.textClass} text-[11px] font-mono font-semibold`}>
+                  {conn.from}
+                </span>
+                <span className="text-gray-700 text-[10px]">&rarr;</span>
+                <span className={`${conn.textClass} text-[11px] font-mono font-semibold`}>
+                  {conn.to}
+                </span>
+              </div>
+              <p className="text-gray-500 text-xs leading-relaxed">
+                {conn.example}
+              </p>
+            </div>
+          ))}
+        </div>
+
         {/* Quote */}
         <p
           className="text-gray-600 text-sm italic max-w-md mx-auto text-center"
           data-reveal
-          data-reveal-delay="3"
+          data-reveal-delay="4"
         >
-          &ldquo;The world might not be ready for the technical truth.
-          But they can feel it through motion.&rdquo;
+          &ldquo;Patterns emerge. A fix in one domain lights up three&nbsp;others.&rdquo;
         </p>
 
-        {/* Interaction hint */}
-        <div className="mt-12 text-[10px] text-gray-700 tracking-widest uppercase" data-reveal data-reveal-delay="4">
-          move your cursor
+        {/* Transition: Topology → Colony */}
+        <div className="mt-16" data-reveal data-reveal-delay="5">
+          <p className="text-gray-400 text-base sm:text-lg">
+            None of this was built alone.
+          </p>
         </div>
       </div>
 
       {/* Back to sandbox */}
       <div className="fixed bottom-6 left-6 z-20">
         <a
-          href="/sandbox"
+          href="/sandbox/topology"
           className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
         >
-          &larr; sandbox
+          &larr; all topology versions
         </a>
       </div>
     </main>

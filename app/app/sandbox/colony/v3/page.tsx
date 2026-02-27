@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   PenguinSVG,
   SkiingPenguinSVG,
@@ -7,7 +8,7 @@ import {
   WrenchPenguinSVG,
   SledPenguinSVG,
 } from "@/lib/ui/characters";
-import { useDataReveal } from "@/lib/ui/hooks";
+import { useCanvasTopology, useDataReveal } from "@/lib/ui/hooks";
 
 /**
  * Colony v3 — Penguins with continuous FLOW
@@ -37,16 +38,24 @@ const penguins = [
 ];
 
 const values = [
-  { title: "Open", desc: "Knowledge shared freely", color: "text-emerald-400", borderColor: "hover:border-emerald-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(52,211,153,0.10)]" },
-  { title: "Reliable", desc: "Validated, versioned, true", color: "text-amber-400", borderColor: "hover:border-amber-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(251,191,36,0.10)]" },
-  { title: "Evolving", desc: "Better with every cycle", color: "text-violet-400", borderColor: "hover:border-violet-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(167,139,250,0.10)]" },
+  { title: "Open", desc: "19K chunks, one MCP call away", color: "text-emerald-400", borderColor: "hover:border-emerald-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(52,211,153,0.10)]" },
+  { title: "Reliable", desc: "5 layers of validation before your agent sees it", color: "text-amber-400", borderColor: "hover:border-amber-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(251,191,36,0.10)]" },
+  { title: "Evolving", desc: "Every cycle adds patterns, never removes them", color: "text-violet-400", borderColor: "hover:border-violet-500/30", shadow: "hover:shadow-[0_8px_30px_rgba(167,139,250,0.10)]" },
 ];
 
 export default function ColonyPage() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useCanvasTopology(canvasRef, { density: 0.25, brightness: 0.5 });
   useDataReveal();
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-penguin-bg via-[#0d1f3a] to-penguin-bg flex flex-col items-center justify-center py-16 px-6">
+    <main className="relative min-h-screen bg-gradient-to-br from-penguin-bg via-[#0d1f3a] to-penguin-bg flex flex-col items-center justify-center py-16 px-6">
+      {/* Constellation background — sparse, warm */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        aria-hidden="true"
+      />
       {/* Idle animation keyframes — each penguin bobs and sways independently */}
       <style>{`
         @keyframes penguin-bob {
@@ -73,17 +82,17 @@ export default function ColonyPage() {
       `}</style>
 
       {/* Title */}
-      <div className="text-center mb-10 max-w-lg" data-reveal>
+      <div className="relative z-10 text-center mb-10 max-w-lg" data-reveal>
         <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">
           The Colony
         </h1>
         <p className="text-gray-400 text-base leading-relaxed">
-          Built by many, for everyone. Each penguin finds its purpose.
+          Every skill was written by a developer who needed it&nbsp;first.
         </p>
       </div>
 
       {/* Penguin parade — continuous flow */}
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-14 max-w-2xl">
+      <div className="relative z-10 flex flex-wrap justify-center gap-4 sm:gap-6 mb-14 max-w-2xl">
         {penguins.map((p, i) => (
           <div
             key={p.name}
@@ -99,7 +108,7 @@ export default function ColonyPage() {
             {/* Penguin with continuous idle animation */}
             <div className="penguin-idle transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-2">
               <p.Component
-                className={`${p.size} opacity-50 group-hover:opacity-100 transition-opacity duration-300`}
+                className={`${p.size} opacity-70 group-hover:opacity-100 transition-opacity duration-300`}
               />
             </div>
 
@@ -112,12 +121,12 @@ export default function ColonyPage() {
               } as React.CSSProperties}
             />
 
-            {/* Name + role on hover */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap flex flex-col items-center">
-              <span className="text-[10px] text-white/70 font-semibold">
+            {/* Name + role — always visible, brighter on hover */}
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-60 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap flex flex-col items-center">
+              <span className="text-[11px] text-white/80 font-semibold">
                 {p.name}
               </span>
-              <span className="text-[8px] text-gray-600 font-mono">
+              <span className="text-[9px] text-gray-500 font-mono">
                 {p.role}
               </span>
             </div>
@@ -126,12 +135,12 @@ export default function ColonyPage() {
       </div>
 
       {/* Role legend */}
-      <p className="text-[10px] text-gray-700 mb-10 tracking-wider uppercase" data-reveal>
-        hover to meet them
+      <p className="relative z-10 text-[10px] text-gray-700 mb-10 tracking-wider uppercase" data-reveal>
+        12 specialists — research, ingest, validate, deliver
       </p>
 
       {/* Value cards — tier colored */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-xl">
         {values.map((val, i) => (
           <div
             key={val.title}
@@ -151,12 +160,19 @@ export default function ColonyPage() {
         ))}
       </div>
 
+      {/* Transition: Colony → Horizon */}
+      <div className="relative z-10 mt-14 text-center" data-reveal>
+        <p className="text-gray-400 text-base sm:text-lg">
+          Everything above — one install&nbsp;away.
+        </p>
+      </div>
+
       {/* Back */}
       <a
-        href="/sandbox"
+        href="/sandbox/colony"
         className="fixed bottom-6 left-6 text-xs text-gray-600 hover:text-gray-400 transition-colors"
       >
-        &larr; sandbox
+        &larr; all colony versions
       </a>
     </main>
   );

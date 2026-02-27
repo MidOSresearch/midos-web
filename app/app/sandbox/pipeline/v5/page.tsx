@@ -27,24 +27,24 @@ const stages = [
   },
   {
     num: "02", name: "Chunks", label: "Knowledge",
-    desc: "21K+ validated pieces. Docs, skills, patterns, research. Shaped and indexed.",
-    count: "21,346",
+    desc: "19K+ validated pieces. Docs, skills, patterns, research. Shaped and indexed.",
+    count: "19,067",
     insight: "Each chunk: frontmatter, tags, confidence score, domain, access tier",
     color: { r: 52, g: 211, b: 153, hex: "#34d399" },
     tw: { num: "text-emerald-400", dot: "bg-emerald-400", border: "hover:border-emerald-500/40", shadow: "hover:shadow-[0_8px_30px_rgba(52,211,153,0.12)]", insight: "text-emerald-700", insightBorder: "border-emerald-900/30" },
   },
   {
     num: "03", name: "Dev", label: "Tools & Depth",
-    desc: "300+ instruments. Semantic search. Agent handshake. Professional depth.",
-    count: "300+",
+    desc: "400+ instruments. Semantic search. Agent handshake. Professional depth.",
+    count: "413",
     insight: "Harvest, vector search, pipeline synergy, cost tracking, quality scoring",
     color: { r: 56, g: 189, b: 248, hex: "#38bdf8" },
     tw: { num: "text-sky-400", dot: "bg-sky-400", border: "hover:border-sky-500/40", shadow: "hover:shadow-[0_8px_30px_rgba(56,189,248,0.12)]", insight: "text-sky-700", insightBorder: "border-sky-900/30" },
   },
   {
     num: "04", name: "Truth", label: "Verified",
-    desc: "47 truth patches. 168 EUREKA discoveries. Battle-tested and proven.",
-    count: "215",
+    desc: "47 truth patches. 236 EUREKA discoveries. Battle-tested and proven.",
+    count: "283",
     insight: "What survived the fire. Patches, discoveries, proven under pressure",
     color: { r: 251, g: 191, b: 36, hex: "#fbbf24" },
     tw: { num: "text-amber-400", dot: "bg-amber-400", border: "hover:border-amber-500/40", shadow: "hover:shadow-[0_8px_30px_rgba(251,191,36,0.12)]", insight: "text-amber-700", insightBorder: "border-amber-900/30" },
@@ -294,6 +294,18 @@ export default function PipelineExperiment() {
           <div className="w-8 h-px bg-gray-800" />
         </div>
 
+      </div>
+
+      {/* Transition: Pipeline → Orchestrator */}
+      <div className="py-24 flex items-center justify-center px-6">
+        <div className="text-center max-w-md" data-reveal>
+          <p className="text-gray-400 text-base sm:text-lg leading-loose">
+            Five layers, hundreds of tools.
+          </p>
+          <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+            Something has to keep them in&nbsp;sync.
+          </p>
+        </div>
       </div>
 
       {/* Back */}

@@ -40,6 +40,24 @@ const sections = [
     desc: "Hybrid aurora — CSS anchor layers for structure + canvas wisps for organic motion.",
   },
   {
+    slug: "before-after",
+    title: "Before / After",
+    versions: 1,
+    desc: "Split-screen terminal sim: agent without MidOS (chaos, 12K tokens, 8s) vs with MidOS (calm, 847 tokens, 0.3s).",
+  },
+  {
+    slug: "pricing",
+    title: "Pricing",
+    versions: 1,
+    desc: "Three tiers: Community ($0), Dev ($29/mo), Ops ($79/mo). Feature comparison, FAQ, market positioning.",
+  },
+  {
+    slug: "graph",
+    title: "Graph Viewer",
+    versions: 1,
+    desc: "Interactive architecture graph. Pan, zoom, click-to-inspect, filter chips. Canvas 2D, zero deps.",
+  },
+  {
     slug: "slope",
     title: "Slope Penguin",
     versions: 1,
@@ -107,23 +125,48 @@ export default function SandboxIndex() {
         {/* Special links */}
         <div className="mt-10 pt-8 border-t border-penguin-border/30 space-y-3">
           <Link
-            href="/sandbox/v1"
+            href="/sandbox/dashboard"
             className="group flex items-center gap-5 p-5 bg-penguin-surface/30 border border-penguin-border/60
-                       rounded-xl transition-all duration-200 hover:border-violet-500/30"
+                       rounded-xl transition-all duration-200 hover:border-teal-500/30
+                       hover:shadow-[0_2px_20px_rgba(0,150,136,0.08)]"
           >
             <div className="shrink-0 w-10 h-10 rounded-lg bg-penguin-bg border border-penguin-border
-                            flex items-center justify-center text-gray-600 group-hover:text-violet-400 transition-colors">
+                            flex items-center justify-center text-gray-600 group-hover:text-teal-400 transition-colors">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 3v18M3 12h18" />
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
               </svg>
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-base font-semibold text-white group-hover:text-violet-300 transition-colors">
-                V1: Full Journey
+              <h2 className="text-base font-semibold text-white group-hover:text-teal-300 transition-colors">
+                System Dashboard
               </h2>
-              <p className="text-xs text-gray-500 mt-0.5">All sections composed as one scroll story. The landing page as a journey.</p>
+              <p className="text-xs text-gray-500 mt-0.5">Live system status. Knowledge pipeline, community, security, infrastructure.</p>
             </div>
             <span className="shrink-0 text-gray-700 group-hover:text-gray-400 transition-colors text-sm">&rarr;</span>
+          </Link>
+
+          <Link
+            href="/sandbox/journey"
+            className="group flex items-center gap-5 p-5 bg-emerald-900/20 border border-emerald-500/30
+                       rounded-xl transition-all duration-200 hover:border-emerald-400/50
+                       hover:shadow-[0_2px_20px_rgba(52,211,153,0.12)]"
+          >
+            <div className="shrink-0 w-10 h-10 rounded-lg bg-penguin-bg border border-emerald-500/20
+                            flex items-center justify-center text-emerald-400 group-hover:text-emerald-300 transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </div>
+            <div className="flex-1 min-w-0">
+              <h2 className="text-base font-semibold text-white group-hover:text-emerald-300 transition-colors">
+                Full Journey
+              </h2>
+              <p className="text-xs text-gray-400 mt-0.5">All 6 sections composed as one scroll. The conversion funnel.</p>
+            </div>
+            <span className="shrink-0 text-emerald-500/60 group-hover:text-emerald-400 transition-colors text-sm">&rarr;</span>
           </Link>
 
           <Link

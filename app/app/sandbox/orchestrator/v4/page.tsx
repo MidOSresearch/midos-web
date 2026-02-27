@@ -23,13 +23,13 @@ import { useDataReveal } from "@/lib/ui/hooks";
 
 const CAPABILITIES = [
   { label: "Research",  desc: "Deep dives into any topic. 100+ sources harvested per round.",  color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
-  { label: "Knowledge", desc: "21K+ validated chunks. Docs, skills, patterns — absorbed.",     color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F4DA}" },
+  { label: "Knowledge", desc: "19K+ validated chunks. Docs, skills, patterns — absorbed.",     color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F4DA}" },
   { label: "Harvest",   desc: "Auto-ingest from web, docs, repos. Always learning.",           color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F33E}" },
-  { label: "Tools",     desc: "300+ instruments. Semantic search, agent handshake.",            color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F527}" },
+  { label: "Tools",     desc: "400+ instruments. Semantic search, agent handshake.",            color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F527}" },
   { label: "Pipeline",  desc: "5 layers: raw → chunks → tools → truth → SOTA.",                color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F4CA}" },
   { label: "Truth",     desc: "47 verified patches. EUREKA discoveries. Battle-tested.",        color: { r: 251, g: 191, b: 36  }, icon: "\u{2705}" },
   { label: "Community", desc: "Skills shared freely. Open source. Built by many.",              color: { r: 251, g: 191, b: 36  }, icon: "\u{1F91D}" },
-  { label: "Skills",    desc: "118 stacks. React, Rust, Go, Python — battle-tested.",           color: { r: 167, g: 139, b: 250 }, icon: "\u{26A1}" },
+  { label: "Skills",    desc: "121 stacks. React, Rust, Go, Python — battle-tested.",           color: { r: 167, g: 139, b: 250 }, icon: "\u{26A1}" },
 ];
 
 // Pipeline colors for idle chromatophore cycling
@@ -144,18 +144,18 @@ export default function OrchestratorExperiment() {
 
       CAPABILITIES.forEach((_, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.7 + i * 0.12) + i * 1.8) * 0.12;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.08;
         const angle = baseAngle + sway;
 
         const endX = bx + Math.cos(angle) * tentacleLength;
         const endY = by + Math.sin(angle) * tentacleLength;
 
-        // Mouse attraction
+        // Mouse attraction — gentle suggestion, not possession
         let finalEndX = endX, finalEndY = endY;
         if (mouseX > -500) {
           const d = Math.sqrt((mouseX - endX) ** 2 + (mouseY - endY) ** 2);
           if (d < 120) {
-            const pull = (1 - d / 120) * 0.35;
+            const pull = (1 - d / 120) * 0.10;
             finalEndX += (mouseX - endX) * pull;
             finalEndY += (mouseY - endY) * pull;
           }
@@ -169,8 +169,8 @@ export default function OrchestratorExperiment() {
 
       // Smooth tip scales
       CAPABILITIES.forEach((_, i) => {
-        const target = hoveredTentacle === i ? 2.4 : 1;
-        tipScales[i] += (target - tipScales[i]) * 0.1;
+        const target = hoveredTentacle === i ? 2.2 : 1;
+        tipScales[i] += (target - tipScales[i]) * 0.05;
       });
 
       // Hub color: lerp toward hovered tentacle color (or idle chromatophore cycle)
@@ -184,21 +184,19 @@ export default function OrchestratorExperiment() {
       // --- DRAW TENTACLES ---
       CAPABILITIES.forEach((cap, i) => {
         const baseAngle = fanStart + (i / (n - 1)) * (fanEnd - fanStart);
-        const sway = prefersReduced ? 0 : Math.sin(time * (0.7 + i * 0.12) + i * 1.8) * 0.12;
-        const volatility = prefersReduced ? 0 : Math.sin(time * (1.2 + i * 0.3) + i * 0.9) * 0.06;
-        const angle = baseAngle + sway + volatility;
+        const sway = prefersReduced ? 0 : Math.sin(time * (0.5 + i * 0.08) + i * 1.8) * 0.08;
+        const angle = baseAngle + sway;
 
         const { x: finalEndX, y: finalEndY } = tipPositions[i];
         const { r, g, b } = cap.color;
         const scale = tipScales[i];
         const isHovered = hoveredTentacle === i;
 
-        // Bezier control points — more volatile wave
-        const cp1x = bx + Math.cos(angle + 0.25) * tentacleLength * 0.35;
-        const cp1y = by + Math.sin(angle + 0.25) * tentacleLength * 0.35;
-        const waveSway = prefersReduced ? 0 : Math.sin(time * 1.0 + i * 2.2) * tentacleLength * 0.16;
-        const cp2x = bx + Math.cos(angle - 0.18) * tentacleLength * 0.7 + Math.cos(angle + Math.PI / 2) * waveSway;
-        const cp2y = by + Math.sin(angle - 0.18) * tentacleLength * 0.7 + Math.sin(angle + Math.PI / 2) * waveSway;
+        // Bezier control points — smooth organic curve, single wave
+        const cp1x = bx + Math.cos(angle + 0.20) * tentacleLength * 0.35;
+        const cp1y = by + Math.sin(angle + 0.20) * tentacleLength * 0.35;
+        const cp2x = bx + Math.cos(angle - 0.12) * tentacleLength * 0.7;
+        const cp2y = by + Math.sin(angle - 0.12) * tentacleLength * 0.7;
 
         // Tentacle glow
         ctx.beginPath();
@@ -428,7 +426,7 @@ export default function OrchestratorExperiment() {
         ctx.font = "10px ui-monospace, monospace";
         ctx.textAlign = "center";
         ctx.fillStyle = "rgba(255,255,255,0.12)";
-        ctx.fillText("hover each tentacle", cx, h - 80);
+        ctx.fillText("explore each capability", cx, h - 80);
       }
 
       raf = requestAnimationFrame(draw);
@@ -460,13 +458,17 @@ export default function OrchestratorExperiment() {
           One Mind, Many Hands
         </h2>
         <p className="mt-2 text-gray-500 text-xs sm:text-sm max-w-sm mx-auto">
-          Hover each tentacle. The octopus thinks in color.
+          Eight capabilities. One coordinator. Zero&nbsp;collisions.
         </p>
       </div>
 
-      <div className="fixed bottom-14 left-0 right-0 text-center z-10">
-        <p className="text-gray-700 text-[10px] italic tracking-wide">
-          pulpo no se casa con agentes; se casa con capacidades
+      {/* Transition: Orchestrator → Topology */}
+      <div className="fixed bottom-14 left-0 right-0 text-center z-10 pointer-events-none">
+        <p className="text-gray-500 text-xs sm:text-sm">
+          When things connect, patterns appear.
+        </p>
+        <p className="text-gray-700 text-[10px] mt-1">
+          That&apos;s what your agent actually&nbsp;uses.
         </p>
       </div>
 

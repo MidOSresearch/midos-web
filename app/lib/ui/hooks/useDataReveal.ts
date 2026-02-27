@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type RefObject } from "react";
+import { useEffect } from "react";
 
 /**
  * Sets up IntersectionObserver for elements with `data-reveal` attribute.
