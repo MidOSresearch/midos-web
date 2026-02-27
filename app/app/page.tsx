@@ -1,14 +1,17 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * midos.dev — Public landing page.
  * Conversion funnel: Hook → Pain → Trust → Value → Scale → Community → Pricing → CTA
  *
- * Performance: LazySection renders children only when near viewport (rootMargin 400px).
- * Hero loads immediately; everything else lazy-mounts on scroll approach.
+ * Scroll philosophy: continuous unfolding, no hard breaks.
+ * - All sections always mounted (next/dynamic handles code splitting)
+ * - Each section fades in as it approaches viewport (CSS transition, no layout shift)
+ * - No min-height forcing — sections size to their content in journey context
+ * - SectionThread provides visual continuity between sections
  */
 
 const Hero = dynamic(() => import("./sandbox/hero/v5/page"), { ssr: false });
@@ -77,33 +80,11 @@ function Navbar() {
 
 function SectionThread() {
   return (
-    <div className="relative h-16 overflow-hidden" aria-hidden="true">
+    <div className="relative h-12 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-px h-full bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent" />
       </div>
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-emerald-500/30" />
-    </div>
-  );
-}
-
-function LazySection({ children, minH = "50vh" }: { children: ReactNode; minH?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); io.disconnect(); } },
-      { rootMargin: "400px 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} style={{ minHeight: visible ? undefined : minH }}>
-      {visible ? children : null}
     </div>
   );
 }
@@ -126,72 +107,96 @@ export default function LandingPage() {
         .journey-section a[href*="/sandbox"] {
           display: none !important;
         }
+        /* Middle sections: natural height, no forced 100vh */
         .journey-section.compact main,
         .journey-section.compact section {
           min-height: auto !important;
         }
+        /* Smooth section entrance — starts slightly faded, transitions in */
+        .journey-section.compact {
+          opacity: 0.4;
+          transform: translateY(12px);
+          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .journey-section.compact.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
       `}</style>
 
-      {/* Hero loads immediately — first impression */}
+      {/* Hero — always visible, no fade needed */}
       <div className="journey-section">
         <Hero />
       </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact" id="how-it-works">
-          <BeforeAfter />
-        </div>
-      </LazySection>
+      <div className="journey-section compact" id="how-it-works">
+        <BeforeAfter />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact">
-          <Pipeline />
-        </div>
-      </LazySection>
+      <div className="journey-section compact">
+        <Pipeline />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact">
-          <Orchestrator />
-        </div>
-      </LazySection>
+      <div className="journey-section compact">
+        <Orchestrator />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact">
-          <Topology />
-        </div>
-      </LazySection>
+      <div className="journey-section compact">
+        <Topology />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact">
-          <Colony />
-        </div>
-      </LazySection>
+      <div className="journey-section compact">
+        <Colony />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section compact" id="pricing">
-          <Pricing />
-        </div>
-      </LazySection>
+      <div className="journey-section compact" id="pricing">
+        <Pricing />
+      </div>
 
       <SectionThread />
 
-      <LazySection>
-        <div className="journey-section">
-          <Horizon />
-        </div>
-      </LazySection>
+      {/* Horizon — closing CTA, full viewport */}
+      <div className="journey-section">
+        <Horizon />
+      </div>
+
+      <SectionFadeObserver />
     </div>
   );
+}
+
+/** Observes .journey-section.compact elements and adds .in-view when visible */
+function SectionFadeObserver() {
+  useEffect(() => {
+    const sections = document.querySelectorAll(".journey-section.compact");
+    if (!sections.length) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        });
+      },
+      { rootMargin: "0px 0px -50px 0px", threshold: 0.05 },
+    );
+
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
+
+  return null;
 }
