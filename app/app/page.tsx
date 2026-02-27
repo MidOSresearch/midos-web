@@ -20,6 +20,7 @@ const Pipeline = dynamic(() => import("./sandbox/pipeline/v5/page"), { ssr: fals
 const Orchestrator = dynamic(() => import("./sandbox/orchestrator/v4/page"), { ssr: false });
 const Topology = dynamic(() => import("./sandbox/topology/current/page"), { ssr: false });
 const Colony = dynamic(() => import("./sandbox/colony/v3/page"), { ssr: false });
+const TierDemo = dynamic(() => import("./sandbox/tier-demo/page"), { ssr: false });
 const Pricing = dynamic(() => import("./sandbox/pricing/page"), { ssr: false });
 const Horizon = dynamic(() => import("./sandbox/horizon/v4/page"), { ssr: false });
 
@@ -169,6 +170,12 @@ export default function LandingPage() {
 
       <div className="journey-section compact">
         <Colony />
+      </div>
+
+      <SectionThread />
+
+      <div className="journey-section compact">
+        <TierDemo />
       </div>
 
       <SectionThread />
