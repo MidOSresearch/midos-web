@@ -4,9 +4,9 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useDataReveal } from "@/lib/ui/hooks";
 
 /**
- * Tier Demo — Same query, three depths
+ * Tier Demo — Same query, two depths
  *
- * Shows how Community, Dev, and Ops tiers return different
+ * Shows how Dev and Pro tiers return different
  * levels of knowledge for the exact same MCP call.
  * Typewriter animation reveals each response progressively.
  */
@@ -23,7 +23,7 @@ interface TierResponse {
 
 const TIERS: TierResponse[] = [
   {
-    name: "Community",
+    name: "Dev",
     color: "text-gray-400",
     borderColor: "border-gray-700/40",
     bgColor: "bg-[#0a0a0f]",
@@ -32,28 +32,7 @@ const TIERS: TierResponse[] = [
     lines: [
       { text: "$ midos search 'React 19 migration'", type: "cmd" },
       { text: "", type: "dim" },
-      { text: "Found 14 results  (0.08s)", type: "ok" },
-      { text: "", type: "dim" },
-      { text: "1. react_19_migration_guide_20260115", type: "result" },
-      { text: "   Breaking changes: PropTypes removed, forwar...", type: "truncated" },
-      { text: "", type: "dim" },
-      { text: "2. react_server_components_patterns_20260201", type: "result" },
-      { text: "   Server Components now default. Key patter...", type: "truncated" },
-      { text: "", type: "dim" },
-      { text: "   Content truncated (250 chars) — upgrade for full access", type: "locked" },
-    ],
-  },
-  {
-    name: "Dev",
-    color: "text-emerald-400",
-    borderColor: "border-emerald-500/30",
-    bgColor: "bg-[#060f0a]",
-    dotColor: "bg-emerald-400",
-    label: "$29 / mo",
-    lines: [
-      { text: "$ midos search 'React 19 migration'", type: "cmd" },
-      { text: "", type: "dim" },
-      { text: "Found 14 results  (0.08s)  +  3 EUREKA", type: "ok" },
+      { text: "Found 14 results  +  3 EUREKA  +  2 SOTA  (0.08s)", type: "ok" },
       { text: "", type: "dim" },
       { text: "1. react_19_migration_guide_20260115", type: "result" },
       { text: "   Breaking changes: PropTypes removed entirely.", type: "result" },
@@ -65,30 +44,32 @@ const TIERS: TierResponse[] = [
       { text: "   eliminates 80% of loading state boilerplate.", type: "ok" },
       { text: "", type: "dim" },
       { text: "   Confidence: 0.94  |  Domain: web_development", type: "dim" },
+      { text: "   497 queries remaining this month", type: "dim" },
     ],
   },
   {
-    name: "Ops",
-    color: "text-violet-400",
-    borderColor: "border-violet-500/30",
-    bgColor: "bg-[#0a060f]",
-    dotColor: "bg-violet-400",
-    label: "$79 / mo",
+    name: "Pro",
+    color: "text-emerald-400",
+    borderColor: "border-emerald-500/30",
+    bgColor: "bg-[#060f0a]",
+    dotColor: "bg-emerald-400",
+    label: "$20 / mo",
     lines: [
       { text: "$ midos search 'React 19 migration'", type: "cmd" },
       { text: "", type: "dim" },
-      { text: "Found 14 results  +  3 EUREKA  +  2 SOTA", type: "ok" },
+      { text: "Found 14 results  +  3 EUREKA  +  2 SOTA  +  1 AOTC", type: "ok" },
       { text: "", type: "dim" },
       { text: "1. react_19_migration_guide_20260115", type: "result" },
-      { text: "   [Full content + EUREKA + SOTA as Dev tier]", type: "result" },
+      { text: "   [Full content + EUREKA + SOTA — same as Dev]", type: "result" },
       { text: "", type: "dim" },
-      { text: "   SOTA: Production migration playbook", type: "ok" },
+      { text: "   AOTC: Production migration playbook", type: "ok" },
       { text: "   Step 1: Codemods (npx react-codemod@latest)", type: "result" },
       { text: "   Step 2: Enable strict mode, fix hydration", type: "result" },
       { text: "   Step 3: Replace useEffect waterfalls w/ use()", type: "result" },
       { text: "", type: "dim" },
-      { text: "   Team pool: 99,847 queries remaining", type: "dim" },
-      { text: "   Priority routing: enabled", type: "dim" },
+      { text: "   Security pack: CSP headers for RSC streaming", type: "ok" },
+      { text: "", type: "dim" },
+      { text: "   99,847 queries remaining  |  Priority routing", type: "dim" },
     ],
   },
 ];
@@ -111,29 +92,29 @@ export default function TierDemoPage() {
         {/* Header */}
         <div className="text-center mb-10 sm:mb-14 max-w-2xl" data-reveal>
           <span className="inline-block text-[11px] font-mono uppercase tracking-[0.25em] text-gray-600 mb-4">
-            Three Tiers
+            Two Tiers
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-5">
             Same query. Different&nbsp;depth.
           </h2>
           <p className="text-gray-500 text-base sm:text-lg leading-relaxed">
-            Every tier gets the same search.
-            <span className="text-gray-300 font-medium"> Higher tiers see&nbsp;more.</span>
+            Dev gets the full library.
+            <span className="text-gray-300 font-medium"> Pro unlocks the&nbsp;arsenal.</span>
           </p>
         </div>
 
-        {/* Three terminal cards */}
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5" data-reveal data-reveal-delay="1">
+        {/* Two terminal cards */}
+        <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5" data-reveal data-reveal-delay="1">
           {TIERS.map((tier, i) => (
             <TierCard key={tier.name} tier={tier} delayMs={i * 400} />
           ))}
         </div>
 
         {/* Summary line */}
-        <div className="mt-10 sm:mt-14 text-center" data-reveal data-reveal-delay="3">
+        <div className="mt-10 sm:mt-14 text-center" data-reveal data-reveal-delay="2">
           <p className="text-gray-500 text-sm sm:text-base">
-            Same library. Same MCP call. The difference is{" "}
-            <span className="text-white font-medium">what comes back</span>.
+            Same library. Same MCP call. Pro adds the{" "}
+            <span className="text-white font-medium">AOTC frontier + ops packs</span>.
           </p>
         </div>
       </section>

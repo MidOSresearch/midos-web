@@ -7,72 +7,52 @@ import { useCanvasTopology, useDataReveal } from "@/lib/ui/hooks";
  * Pricing — Conversion-focused tier comparison
  *
  * Goal: visitor picks a tier and clicks "Get Started"
- * Tiers: Community ($0), Dev ($29/mo), Ops ($79/mo)
- * Design: dark bg, tier-colored cards, most popular highlight on Dev
+ * Tiers: Dev ($0), Pro ($20/mo)
+ * Design: dark bg, tier-colored cards, most popular highlight on Pro
  */
 
 const tiers = [
   {
-    name: "Community",
+    name: "Dev",
     price: "0",
     period: "forever",
-    desc: "Evaluate MidOS. See if it fits.",
+    desc: "Full library access. Every answer, complete.",
     color: { text: "text-gray-300", border: "border-gray-600/40", bg: "bg-gray-800/20", badge: "", glow: "" },
     cta: "Start Free",
     ctaStyle: "bg-gray-700 hover:bg-gray-600 text-white",
     features: [
-      "8 MCP tools (68 total on platform)",
-      "100 queries / month",
-      "Search knowledge base",
-      "Browse 121 skills",
-      "Truncated content previews",
-      "Community support",
+      "Full content (no truncation)",
+      "46K+ knowledge chunks, complete",
+      "119 skills across 16+ stacks",
+      "EUREKA discoveries + SOTA",
+      "Truth patches + ATOMs",
+      "Semantic search (670K+ vectors)",
+      "500 queries / month",
+      "Agent configurations",
     ],
     limits: [
-      "Content truncated (250 chars)",
-      "No EUREKA / SOTA access",
-      "No semantic search",
+      "No AOTC frontier content",
+      "No ops packs (security, infra)",
     ],
   },
   {
-    name: "Dev",
-    price: "29",
+    name: "Pro",
+    price: "20",
     period: "/mo",
-    annualPrice: "25",
-    desc: "Full library access. Every answer, complete.",
+    annualPrice: "17",
+    desc: "The arsenal. Security, hacking, AOTC, elevated limits.",
     popular: true,
     color: { text: "text-emerald-400", border: "border-emerald-500/40", bg: "bg-emerald-900/10", badge: "bg-emerald-500", glow: "shadow-[0_0_40px_rgba(52,211,153,0.10)]" },
     cta: "Get Started",
     ctaStyle: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_4px_20px_rgba(52,211,153,0.25)]",
     features: [
-      "Everything in Community",
-      "Full content (no truncation)",
-      "19K+ chunks, complete skills",
-      "EUREKA discoveries & SOTA",
-      "Semantic search across all content",
-      "25,000 queries / month",
-      "Agent configurations",
-      "Truth patches & ATOMs",
-    ],
-    limits: [],
-  },
-  {
-    name: "Ops",
-    price: "79",
-    period: "/mo",
-    annualPrice: "67",
-    desc: "Specialized knowledge. Team features. Priority.",
-    color: { text: "text-violet-400", border: "border-violet-500/40", bg: "bg-violet-900/10", badge: "", glow: "" },
-    cta: "Contact Us",
-    ctaStyle: "bg-violet-700 hover:bg-violet-600 text-white",
-    features: [
       "Everything in Dev",
+      "AOTC exclusive frontier content",
       "Security operations patterns",
-      "Infrastructure knowledge",
-      "Advanced tooling packs",
-      "100,000 queries / month (pool)",
-      "Priority support",
-      "Team access",
+      "Infrastructure knowledge packs",
+      "Advanced agent tooling",
+      "100,000 queries / month",
+      "Arsenal evolves every month",
     ],
     limits: [],
   },
@@ -82,7 +62,7 @@ const comparisons = [
   { name: "Copilot Pro", price: "$10/mo", what: "Code completions" },
   { name: "Cursor Pro+", price: "$40/mo", what: "AI code editor" },
   { name: "Context7 Pro", price: "$29/mo", what: "Context retrieval" },
-  { name: "MidOS Dev", price: "$29/mo", what: "Validated knowledge library" },
+  { name: "MidOS Pro", price: "$20/mo", what: "Validated knowledge arsenal" },
 ];
 
 export default function PricingPage() {
@@ -99,22 +79,22 @@ export default function PricingPage() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 sm:py-28">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 sm:py-28">
         {/* Header */}
         <div className="text-center mb-16" data-reveal>
           <span className="inline-block text-[11px] font-mono uppercase tracking-[0.25em] text-gray-600 mb-3">
             Pricing
           </span>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4 tracking-tight">
-            Start free. Scale when&nbsp;ready.
+            Start free. Full access.
           </h2>
           <p className="text-gray-400 text-base sm:text-lg max-w-lg mx-auto leading-relaxed">
-            Your AI agent gets 19,000+ validated answers. Pick the depth you&nbsp;need.
+            Your AI agent gets 46,000+ validated answers. The arsenal is for power&nbsp;users.
           </p>
         </div>
 
         {/* Tier cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto mb-20">
           {tiers.map((tier, i) => (
             <div
               key={tier.name}
@@ -129,7 +109,7 @@ export default function PricingPage() {
               {tier.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className={`px-3 py-1 text-[10px] font-semibold uppercase tracking-wider rounded-full text-white ${tier.color.badge}`}>
-                    Most Popular
+                    Power Users
                   </span>
                 </div>
               )}
@@ -177,7 +157,7 @@ export default function PricingPage() {
 
               {/* CTA */}
               <a
-                href={tier.name === "Ops" ? "mailto:hello@midos.dev" : "/login"}
+                href="/login"
                 className={`block text-center px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300
                            hover:-translate-y-0.5 active:translate-y-0 ${tier.ctaStyle}`}
               >
@@ -188,7 +168,7 @@ export default function PricingPage() {
         </div>
 
         {/* Market comparison */}
-        <div className="max-w-md mx-auto" data-reveal data-reveal-delay="3">
+        <div className="max-w-md mx-auto" data-reveal data-reveal-delay="2">
           <p className="text-center text-[11px] font-mono uppercase tracking-[0.2em] text-gray-600 mb-5">
             How we compare
           </p>
@@ -197,13 +177,13 @@ export default function PricingPage() {
               <div
                 key={c.name}
                 className={`flex items-center justify-between px-4 py-2.5 rounded-lg text-sm
-                           ${c.name === "MidOS Dev"
+                           ${c.name === "MidOS Pro"
                              ? "bg-emerald-900/20 border border-emerald-500/20 text-emerald-300"
                              : "bg-penguin-surface/30 border border-penguin-border text-gray-400"}`}
               >
                 <span className="font-medium">{c.name}</span>
                 <span className="text-xs text-gray-600">{c.what}</span>
-                <span className={`font-mono text-sm ${c.name === "MidOS Dev" ? "text-emerald-400 font-semibold" : "text-gray-500"}`}>
+                <span className={`font-mono text-sm ${c.name === "MidOS Pro" ? "text-emerald-400 font-semibold" : "text-gray-500"}`}>
                   {c.price}
                 </span>
               </div>
@@ -215,10 +195,10 @@ export default function PricingPage() {
         </div>
 
         {/* FAQ / quick answers */}
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto" data-reveal data-reveal-delay="4">
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto" data-reveal data-reveal-delay="3">
           {[
             { q: "What is MCP?", a: "Model Context Protocol — the standard way AI agents fetch context. Claude, Cursor, Windsurf, and hundreds of AI clients already speak it." },
-            { q: "What counts as a query?", a: "Each MCP tool call = 1 query. Search, get_skill, list_skills — each one. Community gets 100/mo, Dev gets 25K." },
+            { q: "What counts as a query?", a: "Each MCP tool call = 1 query. Search, get_skill, list_skills — each one. Dev gets 500/mo free, Pro gets 100K." },
             { q: "Can I cancel anytime?", a: "Yes. No contracts, no lock-in. Cancel from your dashboard, effective end of billing period." },
             { q: "Do I need to install anything?", a: "pip install midos — one line. Configure your MCP client (Claude, Cursor, etc.) and you're live in 2 minutes." },
           ].map((faq) => (
