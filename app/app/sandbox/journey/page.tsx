@@ -192,7 +192,7 @@ export default function JourneyPage() {
 
       <SectionThread />
 
-      <div className="journey-section compact" style={{ minHeight: "90vh" }}>
+      <div className="journey-section" style={{ minHeight: "90vh" }}>
         <Orchestrator />
       </div>
 
