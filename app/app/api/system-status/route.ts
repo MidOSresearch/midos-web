@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 import { readFileSync } from "fs";
 import { join } from "path";
 
-const MCP_URL =
-  process.env.NEXT_PUBLIC_MIDOS_API_URL ??
-  "https://lsk8k0so448c8ss40gk8c04o.5.161.96.136.sslip.io";
+const MCP_URL = process.env.NEXT_PUBLIC_MIDOS_API_URL ?? "";
 
 // Path to MidOS root — works in dev (monorepo sibling) and prod (env override)
 const MIDOS_ROOT = process.env.MIDOS_ROOT ?? join(process.cwd(), "..");
@@ -89,6 +87,8 @@ export async function GET() {
     security,
     infra: pulse.infra,
   };
+
+  if (!MCP_URL) return NextResponse.json(offlineResponse, { status: 200 });
 
   try {
     const res = await fetch(`${MCP_URL}/health`, {

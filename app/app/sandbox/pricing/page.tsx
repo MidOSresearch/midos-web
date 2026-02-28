@@ -217,7 +217,7 @@ export default function PricingPage() {
         {/* FAQ / quick answers */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto" data-reveal data-reveal-delay="4">
           {[
-            { q: "What is MCP?", a: "Model Context Protocol — the standard way AI agents fetch context. Claude, GPT, and 50+ tools already speak it." },
+            { q: "What is MCP?", a: "Model Context Protocol — the standard way AI agents fetch context. Claude, Cursor, Windsurf, and hundreds of AI clients already speak it." },
             { q: "What counts as a query?", a: "Each MCP tool call = 1 query. Search, get_skill, list_skills — each one. Community gets 100/mo, Dev gets 25K." },
             { q: "Can I cancel anytime?", a: "Yes. No contracts, no lock-in. Cancel from your dashboard, effective end of billing period." },
             { q: "Do I need to install anything?", a: "pip install midos — one line. Configure your MCP client (Claude, Cursor, etc.) and you're live in 2 minutes." },

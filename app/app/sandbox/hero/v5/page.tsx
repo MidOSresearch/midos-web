@@ -272,7 +272,7 @@ export default function HeroV5() {
           <div data-reveal className="mb-6">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-900/10 text-emerald-300 text-xs font-medium tracking-wide">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Open Source MCP Library
+              Community MCP Library
             </span>
           </div>
 
@@ -348,7 +348,7 @@ export default function HeroV5() {
             </span>
             <span className="w-px h-3 bg-gray-800" />
             <span>
-              <strong className="text-sky-400/80 font-semibold">400+</strong> tools
+              <strong className="text-sky-400/80 font-semibold">68</strong> MCP tools
             </span>
             <span className="w-px h-3 bg-gray-800" />
             <span>
@@ -356,7 +356,7 @@ export default function HeroV5() {
             </span>
             <span className="w-px h-3 bg-gray-800" />
             <span>
-              <strong className="text-violet-400/80 font-semibold">Open</strong> source
+              <strong className="text-violet-400/80 font-semibold">5</strong> tiers
             </span>
           </div>
         </div>
