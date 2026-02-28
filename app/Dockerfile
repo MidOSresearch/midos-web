@@ -1,5 +1,6 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
+RUN apk add --no-cache python3 make g++
 COPY package.json ./
 RUN npm install --legacy-peer-deps
 
@@ -31,6 +32,10 @@ VOLUME /data
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+# better-sqlite3 native binary for SQLite support
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/bindings ./node_modules/bindings
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
 
 USER nextjs
 EXPOSE 3000
