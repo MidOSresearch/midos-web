@@ -329,7 +329,7 @@ export default function HeroV5() {
 
             {/* Secondary */}
             <a
-              href="#explore"
+              href="#how-it-works"
               className="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2"
             >
               See how it works

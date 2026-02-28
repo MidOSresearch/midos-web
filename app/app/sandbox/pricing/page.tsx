@@ -21,7 +21,7 @@ const tiers = [
     cta: "Start Free",
     ctaStyle: "bg-gray-700 hover:bg-gray-600 text-white",
     features: [
-      "8 MCP tools",
+      "8 MCP tools (68 total on platform)",
       "100 queries / month",
       "Search knowledge base",
       "Browse 121 skills",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 type Step = "email" | "code";
@@ -10,6 +11,7 @@ const hasGoogle = !!process.env.NEXT_PUBLIC_HAS_GOOGLE_AUTH;
 const hasOAuth = hasGithub || hasGoogle;
 
 export default function AuthForm() {
+  const router = useRouter();
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
@@ -55,7 +57,7 @@ export default function AuthForm() {
           setCode(["", "", "", "", "", ""]);
           setTimeout(() => codeRefs.current[0]?.focus(), 50);
         } else {
-          window.location.href = "/dashboard";
+          router.push("/dashboard");
         }
       } catch {
         setError("Something went wrong. Please try again.");

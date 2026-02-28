@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type RefObject } from "react";
 
 /**
  * Sets up IntersectionObserver for elements with `data-reveal` attribute.
@@ -29,5 +29,5 @@ export function useDataReveal(options?: { threshold?: number; rootMargin?: strin
       clearTimeout(timer);
       observer.disconnect();
     };
-  }, []);
+  }, [options?.threshold, options?.rootMargin]);
 }
