@@ -25,9 +25,9 @@ const CAPABILITIES = [
   { label: "Research",  desc: "Deep dives into any topic. Curated from open knowledge.",       color: { r: 156, g: 163, b: 175 }, icon: "\u{1F50D}" },
   { label: "Knowledge", desc: "Vast validated library. Docs, skills, patterns — ready.",       color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F4DA}" },
   { label: "Ingest",    desc: "Continuous learning from docs, repos, community.",              color: { r: 52,  g: 211, b: 153 }, icon: "\u{1F33E}" },
-  { label: "Tools",     desc: "400+ instruments. Semantic search, agent handshake.",            color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F527}" },
+  { label: "Tools",     desc: "68 MCP tools. Semantic search, agent handshake.",                color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F527}" },
   { label: "Pipeline",  desc: "5 layers: raw → chunks → tools → truth → SOTA.",                color: { r: 56,  g: 189, b: 248 }, icon: "\u{1F4CA}" },
-  { label: "Truth",     desc: "47 verified patches. EUREKA discoveries. Battle-tested.",        color: { r: 251, g: 191, b: 36  }, icon: "\u{2705}" },
+  { label: "Truth",     desc: "46 verified patches. EUREKA discoveries. Battle-tested.",        color: { r: 251, g: 191, b: 36  }, icon: "\u{2705}" },
   { label: "Community", desc: "Skills shared freely. Open source. Built by many.",              color: { r: 251, g: 191, b: 36  }, icon: "\u{1F91D}" },
   { label: "Skills",    desc: "121 stacks. React, Rust, Go, Python — battle-tested.",           color: { r: 167, g: 139, b: 250 }, icon: "\u{26A1}" },
 ];
