@@ -6,7 +6,7 @@ interface UsageStatsProps {
 }
 
 export default function UsageStats({ tier, usageThisMonth }: UsageStatsProps) {
-  const info = TIERS[tier] ?? TIERS.community;
+  const info = TIERS[tier] ?? TIERS.dev;
   const limit = info.rateLimit;
   const percentage = limit === Infinity ? 0 : Math.min((usageThisMonth / limit) * 100, 100);
   const isNearLimit = percentage > 80;

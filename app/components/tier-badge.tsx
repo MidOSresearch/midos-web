@@ -5,7 +5,7 @@ interface TierBadgeProps {
 }
 
 export default function TierBadge({ tier }: TierBadgeProps) {
-  const info = TIERS[tier] ?? TIERS.community;
+  const info = TIERS[tier] ?? TIERS.dev;
 
   return (
     <span

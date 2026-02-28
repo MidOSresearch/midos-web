@@ -92,18 +92,11 @@ export default async function DashboardPage() {
             <span className="font-medium text-white">Architecture</span>
             <p className="mt-0.5 text-xs text-gray-400">Understand MidOS internals</p>
           </a>
-          <a
-            href="/sandbox"
-            className="rounded-md border border-midos-500/30 bg-midos-900/20 p-3 text-sm hover:bg-midos-900/40 transition"
-          >
-            <span className="font-medium text-midos-300">Sandbox</span>
-            <p className="mt-0.5 text-xs text-gray-400">Explore, rate & give feedback</p>
-          </a>
         </div>
       </div>
 
-      {/* Tier Upgrade CTA — community and dev users can upgrade */}
-      {(tier === "community" || tier === "dev") && (
+      {/* Tier Upgrade CTA — dev users can upgrade */}
+      {tier === "dev" && (
         <UpgradeCta userId={userId} currentTier={tier} />
       )}
     </div>
