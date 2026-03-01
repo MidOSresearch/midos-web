@@ -212,7 +212,7 @@ export default function SectionIndex({
     if (!draft.comment.trim()) return;
     setSaving(slug);
     try {
-      await fetch("/api/sandbox-feedback", {
+      const res = await fetch("/api/sandbox-feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -223,11 +223,15 @@ export default function SectionIndex({
           comment: draft.comment,
         }),
       });
-      // Reset draft, refresh data
-      setDrafts((prev) => ({ ...prev, [slug]: { rating: 0, comment: "" } }));
-      await fetchFeedback();
-    } catch {
-      /* ignore */
+      if (res.ok) {
+        // Reset draft, refresh data
+        setDrafts((prev) => ({ ...prev, [slug]: { rating: 0, comment: "" } }));
+        await fetchFeedback();
+      } else {
+        console.error("[feedback] POST failed:", res.status, await res.text());
+      }
+    } catch (err) {
+      console.error("[feedback] POST error:", err);
     }
     setSaving(null);
   };
